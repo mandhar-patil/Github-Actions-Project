@@ -26,20 +26,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Trivy Installation
-      run: |
-        sudo rpm --import https://aquasecurity.github.io/trivy-repo/rpm/public.key
-        cat <<EOF | sudo tee /etc/yum.repos.d/trivy.repo
-[trivy]
-name=Trivy repository
-baseurl=https://aquasecurity.github.io/trivy-repo/rpm/releases/\$basearch/
-enabled=1
-gpgcheck=1
-gpgkey=https://aquasecurity.github.io/trivy-repo/rpm/public.key
-EOF
-        sudo yum clean all
-        sudo yum makecache
+      run:  |
+        sudo yum install -y wget apt-transport-https gnupg lsb-release
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+        echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+        sudo yum update -y
         sudo yum install -y trivy
-
 
     - name: Trivy FS Scan
       run: trivy fs --format table -o fs-report.json .
