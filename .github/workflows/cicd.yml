@@ -29,7 +29,7 @@ jobs:
       run: |
         - name: Install Trivy on Rocky Linux / RHEL
   run: |
-    sudo rpm --import https://aquasecurity.github.io/trivy-repo/rpm/public.key
+     sudo rpm --import https://aquasecurity.github.io/trivy-repo/rpm/public.key
     sudo tee /etc/yum.repos.d/trivy.repo <<EOF
 [trivy]
 name=Trivy repository
@@ -38,9 +38,9 @@ enabled=1
 gpgcheck=1
 gpgkey=https://aquasecurity.github.io/trivy-repo/rpm/public.key
 EOF
-    sudo yum clean all
-    sudo yum makecache
-    sudo yum install -y trivy
+        sudo yum clean all
+        sudo yum makecache
+        sudo yum install -y trivy
 
     - name: Trivy FS Scan
       run: trivy fs --format table -o fs-report.json .
