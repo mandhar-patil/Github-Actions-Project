@@ -27,10 +27,8 @@ jobs:
     - uses: actions/checkout@v4
     - name: Trivy Installation
       run: |
-        - name: Install Trivy on Rocky Linux / RHEL
-  run: |
-     sudo rpm --import https://aquasecurity.github.io/trivy-repo/rpm/public.key
-    sudo tee /etc/yum.repos.d/trivy.repo <<EOF
+       sudo rpm --import https://aquasecurity.github.io/trivy-repo/rpm/public.key
+       sudo tee /etc/yum.repos.d/trivy.repo <<EOF
 [trivy]
 name=Trivy repository
 baseurl=https://aquasecurity.github.io/trivy-repo/rpm/releases/\$basearch/
