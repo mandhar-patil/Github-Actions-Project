@@ -36,13 +36,16 @@ jobs:
       run: trivy fs --format table -o fs-report.json .
 
     - name: Gitleaks Installation
-      run: |
-        curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest \
-        | grep "browser_download_url.*linux_x64.rpm" \
-        | cut -d : -f 2,3 \
-        | tr -d \" \
-        | wget -qi -
-        sudo rpm -i gitleaks_*.rpm
+      run:  |
+       curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest \
+       | grep "browser_download_url.*linux_x64.tar.gz" \
+       | cut -d : -f 2,3 \
+       | tr -d \" \
+       | wget -qi -
+    
+       tar -xzf gitleaks_*.tar.gz
+       sudo mv gitleaks /usr/local/bin/
+       gitleaks version
         
     - name: Gitleaks Code Scan
       run: gitleaks detect source . -r gitleaks-report.json -f json
