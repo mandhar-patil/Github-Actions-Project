@@ -28,7 +28,7 @@ jobs:
     - name: Trivy Installation
       run: |
        sudo rpm --import https://aquasecurity.github.io/trivy-repo/rpm/public.key
-       sudo tee /etc/yum.repos.d/trivy.repo <<EOF
+       cat <<EOF | sudo tee /etc/yum.repos.d/trivy.repo
 [trivy]
 name=Trivy repository
 baseurl=https://aquasecurity.github.io/trivy-repo/rpm/releases/\$basearch/
