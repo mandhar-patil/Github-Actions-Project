@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: bank-service
+  namespace: bank
+spec:
+  selector:
+     app: bank
+  port:
+    - protocol: TCP
+      port: 8080
+      tagretPort: 8080
+  type: LoadBalancer
