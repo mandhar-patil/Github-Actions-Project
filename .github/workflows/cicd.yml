@@ -29,13 +29,13 @@ jobs:
       run: |
        sudo rpm --import https://aquasecurity.github.io/trivy-repo/rpm/public.key
        cat <<EOF | sudo tee /etc/yum.repos.d/trivy.repo
-[trivy]
-name=Trivy repository
-baseurl=https://aquasecurity.github.io/trivy-repo/rpm/releases/\$basearch/
-enabled=1
-gpgcheck=1
-gpgkey=https://aquasecurity.github.io/trivy-repo/rpm/public.key
-EOF
+  [trivy]
+  name=Trivy repository
+  baseurl=https://aquasecurity.github.io/trivy-repo/rpm/releases/\$basearch/
+  enabled=1
+  gpgcheck=1
+  gpgkey=https://aquasecurity.github.io/trivy-repo/rpm/public.key
+  EOF
         sudo yum clean all
         sudo yum makecache
         sudo yum install -y trivy
