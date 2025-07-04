@@ -1,20 +1,20 @@
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
-   name: bank-app
-   namespace: bank
+  name: bank-app
+  namespace: bank
 spec:
-    replicas: 2
-    selector:
-       matchLabels:
-          app: bank
-    template:
-      metadata:
-        labels:
-          app: bank
-      spec:
-         containers:
-              - name: bank
-                image: mandhar12/bankapp
-         ports:
-              containerPort: 8080
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bank
+  template:
+    metadata:
+      labels:
+        app: bank
+    spec:
+      containers:
+        - name: bank
+          image: mandhar12/bankapp
+          ports:
+            - containerPort: 8080
