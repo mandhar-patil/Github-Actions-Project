@@ -6,7 +6,7 @@ on:
 
 jobs:
   compile:
-    runs-on: self-hosted 
+    runs-on: my-runner
 
     steps:
     - uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
       run: mvn compile
       
   security-check:
-    runs-on: self-hosted
+    runs-on: my-runner
     needs: compile
 
     steps:
@@ -51,7 +51,7 @@ jobs:
       run: gitleaks detect source . -r gitleaks-report.json -f json
 
   test:
-    runs-on: self-hosted
+    runs-on: my-runner
     needs: security-check
     steps:
     - uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
       run: mvn test
 
   build_project_and_sonar_scan:
-    runs-on: self-hosted
+    runs-on: my-runner
     needs: test
     steps:
     - uses: actions/checkout@v4
@@ -103,7 +103,7 @@ jobs:
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
 
   buils_docker_image_and_push:
-    runs-on: self-hosted
+    runs-on: my-runner
     needs: build_project_and_sonar_scan
     steps:
     - uses: actions/checkout@v4
